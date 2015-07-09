@@ -1,0 +1,21 @@
+
+.ui_overlayer_popup {
+	position: fixed;
+	z-index: 100000;
+	top		: 0;
+	left	: 0;
+	right:		0;
+	margin: auto;
+	height: 100%;
+	width: 100%;
+	display: table;
+}
+
+.ui_overlayer_popup .ui_overlayer_inner {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.ui_overlayer_content {
+	padding: 20px;
+}

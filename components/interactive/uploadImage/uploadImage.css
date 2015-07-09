@@ -1,0 +1,26 @@
+.ui_uploadImage_div {
+	display: inline-block;
+	position: absolute;
+	color:gray;
+	border:2px dashed silver;
+	height: 100px;
+	width: 100px;
+	overflow: hidden;
+	text-align: center;
+}
+
+.ui_uploadImage_div {display: inline-block;position: absolute;color:gray;border:2px dashed silver;height: 100px;width: 100px;overflow: hidden;text-align: center;}
+
+.ui_uploadImage_plus {
+	display: block;
+	font-size:50px;
+	font-weight:bold;
+}
+
+.ui_uploadImage_input {
+	position: absolute;
+	display: inline-block;
+	height: 100px;
+	width: 100px;
+	opacity: 0;
+}

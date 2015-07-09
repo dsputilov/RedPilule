@@ -1,0 +1,41 @@
+<template name='ui/balloonWrapper'>
+	<div class="ui_balloon_holder {{ M.class + ' '+ (M.on == 'hover' ? 'ui_balloon_hover' : '') + (M.isHint ? 'ui_balloon_hint_wrapper' : '') }}" shortcut="inner"/>
+</template>
+
+
+<template name='ui/balloon/click'>
+	<div class="ui_balloon {{M.orientation}} tai">
+		<div class="ui_balloon_body c_black {{M.isHint ? 'ui_balloon_hint_popup' : ''}}" style="{{ M.width ? ('width:' + M.width + 'px') : ''}}" shortcut="content">
+			Идет загрузка...
+		</div>
+		<a class="ui_balloon_close {{M.closeButton? '' : 'dn'}}" onclick="self.close(event);">×</a>
+		<div class="ui_balloon_point"><div></div></div>
+	</div>
+</template>
+
+
+<template name='ui/balloon/mid/click'>
+	<div class="tac">
+		<div class="dib pos_a w0 h0">
+			<div class="pos_r" style="{{ M.width ? ('width:' + M.width + 'px') : ''}}">
+				<div class="ui_balloon {{M.orientation}}">
+					<div class="ui_balloon_body c_black {{M.isHint ? 'ui_balloon_hint_popup' : ''}}" style="{{ M.width ? ('width:' + M.width + 'px') : ''}}" shortcut="content">
+						Идет загрузка...
+					</div>
+					<a class="ui_balloon_close {{M.closeButton? '' : 'dn'}}" onclick="self.close(event);">×</a>
+					<div class="ui_balloon_point"><div></div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+
+<template name='ui/balloon/hover'>
+	<div class="ui_balloon {{M.orientation}}" style="{{ M.width ? ('width:' + M.width + 'px') : ''}}">
+		<div class="ui_balloon_body c_black" shortcut="content">
+			Идет загрузка...
+		</div>
+		<div class="ui_balloon_point"><div></div></div>
+	</div>
+</template>

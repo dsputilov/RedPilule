@@ -1,0 +1,12 @@
+<template name='ui/tagbar/tag'>
+	<div class="ui_tagbar_item">
+		{{M.name}}
+	</div>
+</template>
+
+
+<template name='ui/tagbar/tag/removable'>
+	<div class="ui_tagbar_item">
+		{{M.name}} <span class='ui_tagbar_item_remove' onclick="self.removeTag(model.num)">X</span>
+	</div>
+</template>

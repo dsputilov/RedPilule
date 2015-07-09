@@ -1,0 +1,14 @@
+.ui_notice {
+	background:		white;
+	border-radius:	10px;
+	border:			1px solid #bfd0d9;
+	box-shadow:		0 0 10px rgba(0,0,0,0.3);
+	opacity:		0.9;
+	overflow-y: 	hidden;
+	margin-bottom: 10px;
+	z-index: 		10000;
+}
+
+.ui_notice_body {
+	margin:			20px;
+}

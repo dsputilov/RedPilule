@@ -1,0 +1,16 @@
+<template name='ui/pager'>
+	<div class="dib noselect">
+		<button class="ui_pager_page vh {{M.current == 0 || !M.count ? '':'vv'}}" onclick="self.switchPage(-1)">« Предыдущая</button>
+		<div class="ui_pager" shortcut="pages"></div>
+		<button class="ui_pager_page vh {{M.current == M.count-1 || !M.count ?  '':'vv'}}" onclick="self.switchPage(1)">Следующая »</button>
+	</div>
+</template>
+
+
+<template name='ui/pager/page'>
+	<button class="ui_pager_page {{M.isActive}}" onclick="self.selectPage(M.page)">{{M.page+1}}</button>
+</template>
+
+<template name='ui/pager/crumbs'>
+	...
+</template>

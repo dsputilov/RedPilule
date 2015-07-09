@@ -1,0 +1,28 @@
+.calendar_days thead td {width:30px; height:20px; text-align:center; margin-bottom: 3px;}
+
+.ui_calendar_day {width:30px; height:20px; text-align:center; border:1px solid white;}
+.ui_calendar_day:hover {background: #f8f8f8; cursor:pointer;}
+
+.ui_calendar_day_today{
+	border:			1px solid #EDEDED;
+	border-radius:	5px;
+	background:		#FAFAFA;
+	font-size:		13px;
+}
+
+.ui_calendar_day_selected,  .ui_calendar_day_selected.ui_calendar_day:hover{
+	border:			1px solid #3299c9!important;
+	border-radius:	5px;
+	background:		#3299c9!important;
+	color:			white;
+	font-weight: 	bold;
+	font-size:		13px;
+}
+
+
+
+.ui_calendar_day_inactive {}
+.ui_calendar_day_othermonth {color: silver}
+.ui_calendar_day_rest {}
+
+

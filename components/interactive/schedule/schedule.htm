@@ -1,0 +1,62 @@
+<template name='ui/schedule'>
+
+	<div class="mb20">
+		<div class="dib">
+			<if expr="{{!M.isAll}}"><span class="link blue dashed" onclick="self.selectAll();">Выбрать все</span>,&nbsp;</if>
+			<if expr="{{M.isAll}}"><span class="link blue dashed" onclick="self.deselectAll();">Отменить все</span>,&nbsp;</if>
+			<span class="link blue dashed" onclick="self.selectWorks();">рабочее время</span>
+		</div>
+		<div class="dib fr">
+			Всего часов в рабочие дни: {{M.workHours}}
+		</div>
+	</div>
+
+
+	<table cellpadding="0" cellspacing="0" class="noselect mb10">
+		<tr>
+			<td class="pr2">
+				<div class="lh24 tar">Пн. <input type="checkbox" value="{{M.week.0}}" id="week0" class="theme_lpg"><label for="week0"></label></div>
+				<div class="lh24 tar">Вт. <input type="checkbox" value="{{M.week.1}}" id="week1" class="theme_lpg"><label for="week1"></label></div>
+				<div class="lh24 tar">Ср. <input type="checkbox" value="{{M.week.2}}" id="week2" class="theme_lpg"><label for="week2"></label></div>
+				<div class="lh24 tar">Чт. <input type="checkbox" value="{{M.week.3}}" id="week3" class="theme_lpg"><label for="week3"></label></div>
+				<div class="lh24 tar">Пт. <input type="checkbox" value="{{M.week.4}}" id="week4" class="theme_lpg"><label for="week4"></label></div>
+				<div class="lh24 tar">Сб. <input type="checkbox" value="{{M.week.5}}" id="week5" class="theme_lpg"><label for="week5"></label></div>
+				<div class="lh24 tar">Вс. <input type="checkbox" value="{{M.week.6}}" id="week6" class="theme_lpg"><label for="week6"></label></div>
+			</td>
+			<td class='ui_schedule_days' shortcut='days'>
+
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td class="ui_schedle_hours" valign="top">
+
+				<input type="checkbox" value="{{M.hours.0}}" id="hour0" class="theme_lpg"><label for="hour0"></label>
+				<input type="checkbox" value="{{M.hours.1}}" id="hour1" class="theme_lpg"><label for="hour1"></label>
+				<input type="checkbox" value="{{M.hours.2}}" id="hour2" class="theme_lpg"><label for="hour2"></label>
+				<input type="checkbox" value="{{M.hours.3}}" id="hour3" class="theme_lpg"><label for="hour3"></label>
+				<input type="checkbox" value="{{M.hours.4}}" id="hour4" class="theme_lpg"><label for="hour4"></label>
+				<input type="checkbox" value="{{M.hours.5}}" id="hour5" class="theme_lpg"><label for="hour5"></label>
+				<input type="checkbox" value="{{M.hours.6}}" id="hour6" class="theme_lpg"><label for="hour6"></label>
+				<input type="checkbox" value="{{M.hours.7}}" id="hour7" class="theme_lpg"><label for="hour7"></label>
+				<input type="checkbox" value="{{M.hours.8}}" id="hour8" class="theme_lpg"><label for="hour8"></label>
+				<input type="checkbox" value="{{M.hours.9}}" id="hour9" class="theme_lpg"><label for="hour9"></label>
+				<input type="checkbox" value="{{M.hours.10}}" id="hour10" class="theme_lpg"><label for="hour10"></label>
+				<input type="checkbox" value="{{M.hours.11}}" id="hour11" class="theme_lpg"><label for="hour11"></label>
+				<input type="checkbox" value="{{M.hours.12}}" id="hour12" class="theme_lpg"><label for="hour12"></label>
+				<input type="checkbox" value="{{M.hours.13}}" id="hour13" class="theme_lpg"><label for="hour13"></label>
+				<input type="checkbox" value="{{M.hours.14}}" id="hour14" class="theme_lpg"><label for="hour14"></label>
+				<input type="checkbox" value="{{M.hours.15}}" id="hour15" class="theme_lpg"><label for="hour15"></label>
+				<input type="checkbox" value="{{M.hours.16}}" id="hour16" class="theme_lpg"><label for="hour16"></label>
+				<input type="checkbox" value="{{M.hours.17}}" id="hour17" class="theme_lpg"><label for="hour17"></label>
+				<input type="checkbox" value="{{M.hours.18}}" id="hour18" class="theme_lpg"><label for="hour18"></label>
+				<input type="checkbox" value="{{M.hours.19}}" id="hour19" class="theme_lpg"><label for="hour19"></label>
+				<input type="checkbox" value="{{M.hours.20}}" id="hour20" class="theme_lpg"><label for="hour20"></label>
+				<input type="checkbox" value="{{M.hours.21}}" id="hour21" class="theme_lpg"><label for="hour21"></label>
+				<input type="checkbox" value="{{M.hours.22}}" id="hour22" class="theme_lpg"><label for="hour22"></label>
+				<input type="checkbox" value="{{M.hours.23}}" id="hour23" class="theme_lpg"><label for="hour23"></label>
+			</td>
+		</tr>
+	</table>
+
+</template>

@@ -1,0 +1,24 @@
+<template name="ui/for/loader">
+	<tr shortcut="loaderContainer">
+		<td colspan="0" class="tac p0" style="border: 0">
+			<div class="pos_a" style="margin-top: {{M.mt}}px; width:{{M.width}}px; height:{{M.height}}px; ">
+				<div class="w100p h100p bg_fafafa" style="opacity: 0.9"></div>
+
+				<div class="pos_a tac" style="top:50%; width:{{M.width}}px;">
+					<div class="wsn" style="margin-top: -6px;">
+						<i class="ico reload_middle mb-5 rotateAnimation mr5"></i>Идет загрузка данных
+					</div>
+				</div>
+
+
+			</div>
+		</td>
+	</tr>
+</template>
+
+
+<template name="ui/for/pager">
+	<div class="tac mv20">
+		<pager count="{{Math.ceil(M.count/M.limit)}}" current="{{M.currentPage}}"/>
+	</div>
+</template>

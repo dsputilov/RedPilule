@@ -1,0 +1,72 @@
+/* tree control */
+.tree_control		{ margin-left: -24px;}
+.tree_control.tree_root {margin-left: -14px!important;}
+
+.tree_control ul	{ margin: 5px 0 0 20px; padding: 0;}
+.tree_control li	{ list-style: none; padding: 2px 5px; }
+.tree_control input { margin: 0 5px 0 0; }
+
+.tree_control .tree_node {
+	display: inline-block;
+	margin: 0 0 0 2px;
+	padding: 2px 4px;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+.tree_control .tree_leaf {
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 0 0 14px;
+	padding: 2px 4px;
+	cursor: pointer;
+}
+
+.tree_control .tree_leaf_multi {
+	display: inline-block;
+	font-size: 12px;
+	margin: 0 0 0 10px;
+	padding: 2px 4px;
+	cursor: pointer;
+}
+
+.tree_control .node_selected {
+	background: #0095c8;
+	color: #ffffff;
+}
+
+
+.tree_control span.tree_expander	{ width: 12px; height: 12px; display: inline-block; margin-bottom: 2px;}
+.tree_control .expanded span.tree_expander	{ cursor: pointer}
+.tree_control .expanded span.tree_expander:before	{
+	cursor: pointer;
+	content: "▼";
+	width:20px;
+	height: 20px;
+	display: inline-block;
+	font-size: 10px;
+	vertical-align: top;
+	position: relative;
+}
+
+
+.tree_control .collapsed span.tree_expander   { cursor: pointer; }
+.tree_control .collapsed span.tree_expander:before   {
+	content: "►";
+	width:20px;
+	height: 20px;
+	display: inline-block;
+	font-size: 10px;
+	vertical-align: top;
+	position: relative;
+}
+
+.tree_control .collapsed ul     { display: none; }
+.tree_control li.active	{ color: #f00; }
+
+.cbx    { position: relative; display: inline-block; }
+.cbx .ghost    { display: none; }
+.cbx .innerChecked .ghost    { display: inline-block; }
+
+.cbx .real    { display: inline-block; opacity: 1; }
+.cbx .innerChecked .real    { position: absolute; top: 0; left: 0; opacity:0; }

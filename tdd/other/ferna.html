@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<html style="height:100%">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Expires" CONTENT="-1">
+</head>
+<body style="height:100%">
+
+<script src='/core/bind.js'></script>
+<script src='/core/class.js'></script>
+<script src='/core/ferna.js'></script>
+<script src='/core/core.js'></script>
+
+
+<script>
+	var load = {
+		script:		[
+			'calendar/calendar.js'
+		],
+		css:		[
+			'calendar/calendar.css'
+		],
+		template:	[
+			'calendar/calendar.htm'
+		]
+	};
+</script>
+
+
+<script>
+$.Template.register( 'myTemplate', "<calendar/>" );
+
+var initPage = function() {
+	t = $("@myTemplate");
+	t.modelSet({a: {b: '15.123'}});
+	t.appendTo( document.body );
+};
+
+
+var whenFn = [];
+load.forEach(function(files, type) {
+	files.forEach(function(url) {
+		whenFn.push(
+			function(end) {
+				$.Transfer({
+					type: 	type,
+					url:	'/plugins/' + url,
+					onload: function() {
+						end();
+					}
+				}).send();
+			}
+		);
+	});
+});
+
+$.when(whenFn).then(initPage);
+</script>
+
+</body>
+</html>

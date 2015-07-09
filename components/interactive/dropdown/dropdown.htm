@@ -1,0 +1,17 @@
+<template name='ui/dropdown'>
+	<div class="dib" style="width:{{+M.width+2}}px" shortcut="body">
+		<div class="ui_dropdown_button {{M.toggler ? 'active' : ''}}" onclick="self.toggle();">{{M.selectedName || M.placeholder || 'Выберите'}} <div class="ui_dropdown_arrow">{{M.toggler ? '▲' : '▼'}}</div></div>
+		<div class="ui_dropdown_items {{M.toggler ? 'active': ''}}" shortcut="popup">
+			<div class="ui_dropdown_body ui_dropdown_orientation_{{M.orientation}}">
+				<include template="{{M.headertemplate}}" modelUse="{{M.parent}}"/>
+				<if expr="{{M.search}}">
+					<div style="background:none repeat scroll 0 0 #eaf3f7">
+						<input class="theme_lpg m10 br1 mr0" value="{{M.query}}" shortcut="search" placeholder="Поиск" style="width: {{+M.width-36}}px"><i class="ico search_gray_mini infield mb-4"></i>
+					</div>
+				</if>
+				<ul class="ui_dropdown_activeList" style="width:{{M.width}}px" shortcut="itemsList"></ul>
+				<include template="{{M.footertemplate}}" modelUse="{{M.parent}}"/>
+			</div>
+		</div>
+	</div>
+</template>

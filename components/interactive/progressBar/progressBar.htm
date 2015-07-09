@@ -1,0 +1,6 @@
+<template name='ui/progressBar'>
+	<div class="ui_progressBar_out" style="width:{{M.width}}px;">
+		<div class="ui_progressBar_in" style="width:{{Math.floor((M.value/M.max)*100)}}%; background-color: {{ M.value/M.max>0.2? '#95b0bc':'#e96f62'}}">
+		</div>
+	</div>
+</template>

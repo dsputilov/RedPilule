@@ -1,0 +1,21 @@
+.ui_suggest {
+	position: absolute;
+	left: 0;
+	top: 2px;
+	background: white;
+	border-color: #52A8EC !important;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+}
+.ui_suggest_body {
+	margin: 5px 0;
+	max-height: 200px;
+	overflow-y: auto;
+}
+.ui_suggest_body div {
+	padding:	0 10px;
+	cursor:		pointer;
+}
+.ui_suggest_body div:hover, .ui_suggest_body div.hover {
+	background: #52A8EC;
+	color:white;
+}
