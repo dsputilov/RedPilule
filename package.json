@@ -1,17 +1,13 @@
 {
 	"name": "redpilule",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"publishConfig": {
 		"access": "public"
 	},
 	"description": "Light library for html templates and data-binding",
 	"license": "MIT",
-	"repository": {
-		"url": "rollup/plugins",
-		"directory": "packages/image"
-	},
 	"author": "Xman",
-	"main": "dist/rp.js",
+	"main": "./src/index.js",
 	"module": "dist/rp.es.js",
 	"engines": {
 		"node": ">= 8.0.0"
