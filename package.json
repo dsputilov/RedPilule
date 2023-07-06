@@ -1,6 +1,6 @@
 {
 	"name": "redpilule",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"publishConfig": {
 		"access": "public"
 	},
@@ -8,7 +8,6 @@
 	"license": "MIT",
 	"author": "Xman",
 	"main": "./src/index.js",
-	"module": "dist/rp.es.js",
 	"engines": {
 		"node": ">= 8.0.0"
 	},
