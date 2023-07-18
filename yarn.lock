@@ -2528,10 +2528,10 @@ npm-run-path@^4.0.1:
   dependencies:
     path-key "^3.0.0"
 
-object-live@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/object-live/-/object-live-1.0.4.tgz"
-  integrity sha512-93akPPv7cT5I/MuaRVFHpJyP6Jx4Kx0Nlbs04I2tI/qd0v+mnM49hu4kbCfizQpGKErfpJta86WNMJCfxqXjuQ==
+object-live@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/object-live/-/object-live-1.0.5.tgz"
+  integrity sha512-9o3QbI6Oab3d8+bGyARE5EQdTxxCXhp1dChUEc4Hzy6jZ70NHP94u4VNLzXG7ffEqohDB0qpnIqRGHCBB3A5Rw==
   dependencies:
     inum "^1.0.2"
     objectutils-propertybypath "^1.0.2"
