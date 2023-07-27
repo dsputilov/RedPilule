@@ -83,7 +83,7 @@ const RP = class extends HTMLElement {
 							node[attrName] = event => {
 								return (new Function('self, model, event',
 									'const m = model, e=event;' +
-									'return ' + attrCfg.fn + ';'
+									attrCfg.fn + ';'
 								))(this.logic, this.model.data, event);
 							}
 						} else {
