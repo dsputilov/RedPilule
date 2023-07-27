@@ -81,7 +81,7 @@ const RP = class extends HTMLElement {
 					Object.entries(params.attrs).forEach(([attrName, attrCfg]) => {
 						if (attrCfg.type === "event") {
 							node[attrName] = event => {
-								(new Function('self, model, event',
+								return (new Function('self, model, event',
 									'const m = model, e=event;' +
 									'return ' + attrCfg.fn + ';'
 								))(this.logic, this.model.data, event);
