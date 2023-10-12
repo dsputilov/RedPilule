@@ -99,17 +99,29 @@ const RP = class extends HTMLElement {
 											const initiator = 'input.' + inum();
 											render = (cfg) => {
 												if (!(cfg && cfg.extra && cfg.extra.initiator && cfg.extra.initiator === initiator)) {
-													//console.warn('changeCfg:', cfg.extra.initiator, initiator);
-													node.value = (new Function('self, model',
+													const value = (new Function('self, model',
 														'const m = model;' +
 														'return ' + attrCfg.valueOutRender + ';'
 													))(this.logic, this.model.data);
+													//console.warn('[rp render] changeCfg:', cfg, initiator, node, this, 'attrCfg:', attrCfg, attrName, 'value', value);
+													if (node.type === 'checkbox') {
+														node.checked = value;
+													} else {
+														node.value = value;
+													}
 												}
 											};
 											node.addEventListener('input', (e) => {
+												let value;
+												if (node.type === "checkbox") {
+													value = node.checked;
+												} else {
+													value = node.value;
+												}
+												//console.log('input event:', e, value, attrCfg, this);
 												setPropertyByPath(this.model.data, attrCfg.modelOut[0].modelPath, {
 													_RP_MODEL_: true,
-													value: node.value,
+													value: value,
 													extra: {initiator: initiator}
 												});
 											});
@@ -180,6 +192,7 @@ const RP = class extends HTMLElement {
 								attrCfg.modelDepends.forEach(dep => {
 									if (dep.refName === 'm') {
 										if (!dep.jsonInnerPath) {
+											//console.log('%ccomponent model bridge:', 'background:magenta;', dep.modelPath, model, attrName);
 											this.model.bridgeChanges(dep.modelPath, model, attrName);
 										}
 									}
