@@ -95,7 +95,29 @@ const RP = class extends HTMLElement {
 									if (dep.refName === 'm') {
 										let render;
 
-										if (params.tagName === 'input' && attrName === 'value') {
+										if (params.tagName === 'textarea' && attrName === 'value') {
+											const initiator = 'textarea.' + inum();
+											render = (cfg) => {
+												if (!(cfg && cfg.extra && cfg.extra.initiator && cfg.extra.initiator === initiator)) {
+													const value = (new Function('self, model',
+														'const m = model;' +
+														'return ' + attrCfg.valueOutRender + ';'
+													))(this.logic, this.model.data);
+													//console.warn('[rp render] changeCfg:', cfg, initiator, node, this, 'attrCfg:', attrCfg, attrName, 'value', value);
+													node.value = value;
+												}
+											};
+											node.addEventListener('input', (e) => {
+												let value;
+												value = node.value;
+												//console.log('input event:', e, value, attrCfg, this);
+												setPropertyByPath(this.model.data, attrCfg.modelOut[0].modelPath, {
+													_RP_MODEL_: true,
+													value: value,
+													extra: {initiator: initiator}
+												});
+											});
+										} else if (params.tagName === 'input' && attrName === 'value') {
 											const initiator = 'input.' + inum();
 											render = (cfg) => {
 												if (!(cfg && cfg.extra && cfg.extra.initiator && cfg.extra.initiator === initiator)) {
