@@ -59,7 +59,11 @@ const RP = class extends HTMLElement {
 										'const m = model;' +
 										'return ' + params.valueOutRender + ';'
 									))(this.logic, this.model.data);
-								} catch (e) {}
+								} catch (e) {
+									//console.log('%cCant update textNode:', 'color:red;', dep, params);
+									//console.log('model:', this.model.data);
+									//console.log(e);
+								}
 							}
 							this.#modelChangeHandlersAdd(dep.modelPath, render);
 							render();
@@ -183,14 +187,15 @@ const RP = class extends HTMLElement {
 				let tagClass = customElements.get(params.tagName);
 				if (tagClass) {
 					let model = new ObjectLive({});
-					//console.log('[rp] model:', model);
+					//console.log('[rp] component model:',params , model);
 
+					let componentAttrEvents = [];
 					Object.entries(params.attrs).forEach(([attrName, attrCfg]) => {
 						//console.log('[rp] bind attr:', attrName, attrCfg);
 						if (attrCfg.type === 'string') {
-							//TODO:
+							model.data[attrName] = attrCfg.value;
 						} else if (attrCfg.type === 'json') {
-							if (attrCfg.modelDepends) {
+							if (attrCfg.modelDepends.length) {
 								attrCfg.modelDepends.forEach(dep => {
 									//console.log('[rp] model:', this.model, 'attrName:',attrName, 'dep:', dep, 'attrCfg:', attrCfg);
 
@@ -220,11 +225,26 @@ const RP = class extends HTMLElement {
 									}
 								});
 							} else {
-								//model.data[attrName] = curValue;
+								//console.log('[rp] set static model:', attrName, model);
+								model.data[attrName] = (new Function(`return ${attrCfg.valueOutRender};`))();
 							}
+						} else if (attrCfg.type === 'event') {
+							componentAttrEvents.push([attrName, attrCfg]);
+						} else if (attrCfg.type === 'fn') {
+							model.data[attrName] = (new Function('self, model',
+								'const m = model, e=event;' +
+								'return () => {' + attrCfg.fn + '};'
+							))(this.logic, this.model.data);
 						}
 					});
 					node = new tagClass(model);
+					componentAttrEvents.forEach(([attrName, attrCfg]) => {
+						//console.log('[rp] component event:', attrName, attrCfg);
+						node[attrName] = (new Function('self, model',
+							'const m = model, e=event;' +
+							'return () => {' + attrCfg.fn + '};'
+						))(this.logic, this.model.data);
+					});
 
 					if (params.childNodes) {
 						this.#treeRender(node, params.childNodes);
