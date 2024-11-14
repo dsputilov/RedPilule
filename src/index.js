@@ -2,6 +2,8 @@ import inum from "inum";
 import ObjectLive from "object-live";
 import {getPropertyByPath, setPropertyByPath} from "objectutils-propertybypath";
 
+const globalModel = new ObjectLive();
+
 const RP = class extends HTMLElement {
 	model;
 	logic;
@@ -52,22 +54,24 @@ const RP = class extends HTMLElement {
 				const node = document.createTextNode(value);
 				if (params.modelDepends) {
 					params.modelDepends.forEach(dep => {
-						if (dep.refName === 'm') {
-							const render = () => {
-								try {
-									node.textContent = (new Function('self, model',
-										'const m = model;' +
-										'return ' + params.valueOutRender + ';'
-									))(this.logic, this.model.data);
-								} catch (e) {
-									//console.log('%cCant update textNode:', 'color:red;', dep, params);
-									//console.log('model:', this.model.data);
-									//console.log(e);
-								}
+						const render = () => {
+							try {
+								node.textContent = (new Function('self, model, global',
+									'const m = model; g = global;' +
+									'return ' + params.valueOutRender + ';'
+								))(this.logic, this.model.data, globalModel.data);
+							} catch (e) {
+								//console.log('%cCant update textNode:', 'color:red;', dep, params);
+								//console.log('model:', this.model.data);
+								//console.log(e);
 							}
-							this.#modelChangeHandlersAdd(dep.modelPath, render);
-							render();
 						}
+						if (dep.refName === 'm') {
+							this.#modelChangeHandlersAdd(dep.modelPath, render);
+						} else if (dep.refName === 'g') {
+							globalModel.addEventListener('change', dep.modelPath, render);
+						}
+						render();
 					});
 				}
 				return node;
@@ -85,10 +89,10 @@ const RP = class extends HTMLElement {
 					Object.entries(params.attrs).forEach(([attrName, attrCfg]) => {
 						if (attrCfg.type === "event") {
 							node[attrName] = event => {
-								return (new Function('self, model, event',
-									'const m = model, e=event;' +
+								return (new Function('self, model, event, global',
+									'const m = model, e=event; g=global;' +
 									attrCfg.fn + ';'
-								))(this.logic, this.model.data, event);
+								))(this.logic, this.model.data, event, globalModel.data);
 							}
 						} else {
 							let attrNode = document.createAttribute(attrName);
@@ -96,17 +100,16 @@ const RP = class extends HTMLElement {
 								//console.log('dynamic attr:', attrNode, attrName, attrCfg, params);
 
 								attrCfg.modelDepends.forEach(dep => {
-									if (dep.refName === 'm') {
 										let render;
 
 										if (params.tagName === 'textarea' && attrName === 'value') {
 											const initiator = 'textarea.' + inum();
 											render = (cfg) => {
 												if (!(cfg && cfg.extra && cfg.extra.initiator && cfg.extra.initiator === initiator)) {
-													const value = (new Function('self, model',
-														'const m = model;' +
+													const value = (new Function('self, model, global',
+														'const m = model, g=global;' +
 														'return ' + attrCfg.valueOutRender + ';'
-													))(this.logic, this.model.data);
+													))(this.logic, this.model.data, globalModel.data);
 													//console.warn('[rp render] changeCfg:', cfg, initiator, node, this, 'attrCfg:', attrCfg, attrName, 'value', value);
 													node.value = value;
 												}
@@ -125,10 +128,10 @@ const RP = class extends HTMLElement {
 											const initiator = 'input.' + inum();
 											render = (cfg) => {
 												if (!(cfg && cfg.extra && cfg.extra.initiator && cfg.extra.initiator === initiator)) {
-													const value = (new Function('self, model',
-														'const m = model;' +
+													const value = (new Function('self, model, global',
+														'const m = model, g=global;' +
 														'return ' + attrCfg.valueOutRender + ';'
-													))(this.logic, this.model.data);
+													))(this.logic, this.model.data, globalModel.data);
 													//console.warn('[rp render] changeCfg:', cfg, initiator, node, this, 'attrCfg:', attrCfg, attrName, 'value', value);
 													if (node.type === 'checkbox') {
 														node.checked = value;
@@ -145,7 +148,7 @@ const RP = class extends HTMLElement {
 													value = node.value;
 												}
 												//console.log('input event:', e, value, attrCfg, this);
-												setPropertyByPath(this.model.data, attrCfg.modelOut[0].modelPath, {
+												setPropertyByPath(this.model.data, attrCfg.modelOut[0].modelPath, {         //TODO: globalModel change if modelRef=='g'
 													_RP_MODEL_: true,
 													value: value,
 													extra: {initiator: initiator}
@@ -154,17 +157,19 @@ const RP = class extends HTMLElement {
 										} else {
 											render = () => {
 												try {
-													attrNode.value = (new Function('self, model',
-														'const m = model, e=event;' +
+													attrNode.value = (new Function('self, model, global',
+														'const m = model, e=event, g=global;' +
 														'return ' + attrCfg.valueOutRender + ';'
-													))(this.logic, this.model.data);
+													))(this.logic, this.model.data, globalModel.data);
 												} catch (e) {}
 											};
 										}
+									if (dep.refName === 'm') {
 										this.#modelChangeHandlersAdd(dep.modelPath, render);
-										render();
-
+									} else if (dep.refName === 'g') {
+										globalModel.addEventListener('change', dep.modelPath, render);
 									}
+									render();
 								});
 							} else {
 								attrNode.value = attrCfg.value;
@@ -233,7 +238,7 @@ const RP = class extends HTMLElement {
 						} else if (attrCfg.type === 'fn') {
 							model.data[attrName] = (new Function('self, model',
 								'const m = model, e=event;' +
-								'return () => {' + attrCfg.fn + '};'
+								'return function() {' + attrCfg.fn + '};'
 							))(this.logic, this.model.data);
 						}
 					});
@@ -242,7 +247,7 @@ const RP = class extends HTMLElement {
 						//console.log('[rp] component event:', attrName, attrCfg);
 						node[attrName] = (new Function('self, model',
 							'const m = model, e=event;' +
-							'return () => {' + attrCfg.fn + '};'
+							'return function() {' + attrCfg.fn + '};'
 						))(this.logic, this.model.data);
 					});
 
@@ -273,4 +278,5 @@ const RP = class extends HTMLElement {
 
 customElements.define('x-rp', RP);
 
+export {globalModel};
 export default RP;
